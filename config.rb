@@ -1,3 +1,18 @@
+
+set :js_dir,      "assets/scripts"
+
+if self.respond_to?(:extensions) && extensions[:sprockets].nil? || # mm 3.x
+   self.respond_to?(:app) && app.extensions[:sprockets].nil?       # mm 4.x
+
+  # sprockets *should* auto activate before configuration
+  # but it seems there is a lifecycle component that causes
+  # config to be run multiple times forcing an err here.
+   activate :sprockets
+end
+sprockets.append_path File.join( __dir__, 'import_file_dir' )
+
+
+
 if Middleman::VERSION >= '4.0'
 
   import_path File.join( __dir__, 'import_path_dir' ) do |path|
